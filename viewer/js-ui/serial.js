@@ -23,6 +23,12 @@
         terminal.write(c);
     });
 
+    function stdin(e) {
+        for (var i = 0; i < e.length; i++) {
+          window.MbedJSHal.serial.onStdIn(e.charCodeAt(i));
+        }
+    }
+
     window.MbedJSHal.serial.on('stdout-line', function(l) {
         if (typeof window.onPrintEvent === 'function') {
             window.onPrintEvent(l);
@@ -31,7 +37,5 @@
         terminal.write(l);
     });
 
-    window.addEventListener('keypress', function(e) {
-        window.MbedJSHal.serial.onStdIn(e.charCode);
-    });
+    terminal.on('key', stdin);
 })();

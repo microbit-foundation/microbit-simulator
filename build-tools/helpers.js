@@ -80,9 +80,10 @@ const ignoreAndFilter = async function(list, ignoreFile) {
 
 const defaultBuildFlags = [
     '-s', 'NO_EXIT_RUNTIME=1',
-    '-s', 'ASSERTIONS=2',
+    // '-s', 'ASSERTIONS=2',
     '-s', 'ERROR_ON_UNDEFINED_SYMBOLS=0',
     '-s', 'FORCE_FILESYSTEM=1',
+    // '-s', 'WASM=0',
 
     '-D__MBED__',
     '-DTARGET_SIMULATOR',
@@ -108,7 +109,8 @@ const defaultBuildFlags = [
     '-DDEVICE_FLASH=1',
     '-DDEVICE_EMAC=1',
     '-DDEVICE_USTICKER=1',
-
+    '-DDEVICE_PORTOUT=1',
+    '-DDEVICE_PORTIN=1',
 
     // Pelion device management
     '-DARM_UC_USE_PAL_BLOCKDEVICE=1',
@@ -134,12 +136,13 @@ const defaultBuildFlags = [
 const emterpretifyFlags = [
     '-s', 'EMTERPRETIFY=1',
     '-s', 'EMTERPRETIFY_ASYNC=1',
-    '-g3'
+    // '--profiling',
+    // '-g3'
 ];
 
 const nonEmterpretifyFlags = [
     '-s', 'ASYNCIFY=1',
-    '-g4'
+    // '-g4'
 ];
 
 // from https://stackoverflow.com/questions/31645738/how-to-create-full-path-with-nodes-fs-mkdirsync

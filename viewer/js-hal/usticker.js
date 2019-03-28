@@ -8,6 +8,9 @@ window.MbedJSHal.usticker = (function() {
     }
 
     function read() {
+        if (start == 0) {
+            init();
+        }
         var now = (Date.now() - start) * 1000; // in us.
         // console.log('read, currval is', now);
         return now;

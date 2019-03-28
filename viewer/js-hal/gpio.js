@@ -80,6 +80,9 @@ window.MbedJSHal.gpio = (function() {
             interrupt: false,
             value: 0
         };
+        if (mode == MODE.PullUp) {
+            declaredPins[pin].value = 1;
+        }
     }
 
     function init_inout(ptr, pin, direction, mode, value) {

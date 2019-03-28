@@ -16,15 +16,17 @@
 </head>
 <body class="viewer">
   <div id="viewer-topbar">
-    <div id="add-component">+ Add component</div>
     <a id="refresh" href="">&#x21bb;</a>
     <div id="status">Downloading...</div>
   </div>
 
-
   <section id="board">
+      <object id="microbit-svg" data="/img/microbit-drawing.svg" type="image/svg+xml" alt="micro:bit device"></object>
       <section id="components">
-          <object id="board-svg" data="/img/controller_mbed.svg" type="image/svg+xml"></object>
+        <section id="sensors">
+        </section>
+        <section id="accelerometer">
+        </section>
       </section>
   </section>
 
@@ -33,37 +35,22 @@
       <div id="output"></div>
   </section>
 
-  <section id="overlay">
-    <div id="add-component-modal">
-      <h2>Add component</h2>
-      <select id="select-component">
-      </select>
-      <div>
-        <p>Pins to use</p>
-        <div id="pins"></div>
-      </div>
-      <button id="add-component-btn">Add component</button>
-    </div>
+  <section id="serial">
+      <h2>Script</h2>
+      <textarea id ="script" rows="30"></textarea>
   </section>
 
-  <script>
-    window.peripheralsToLoad = {{{peripherals}}};
-  </script>
+  <section id="overlay">
+  </section>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/timesync/timesync.js"></script>
   <script src="/xterm/xterm.js"></script>
 
   <!-- Required parts of the JS HAL -->
-  <script type="text/javascript" src="/js-ui/ga.js"></script>
   <script type="text/javascript" src="/js-ui/init.js"></script>
   <script type="text/javascript" src="/js-hal/EventEmitter.js"></script>
   <script type="text/javascript" src="/js-hal/pinnames.js"></script>
   <script type="text/javascript" src="/js-hal/gpio.js"></script>
   <script type="text/javascript" src="/js-hal/usticker.js"></script>
-  <script type="text/javascript" src="/js-hal/network.js"></script>
-  <script type="text/javascript" src="/js-hal/lora.js"></script>
-  <script type="text/javascript" src="/js-hal/blockdevice.js"></script>
   <script type="text/javascript" src="/js-hal/sleep.js"></script>
   <script type="text/javascript" src="/js-hal/serial.js"></script>
   {{#each jshal}}
@@ -71,11 +58,12 @@
   {{/each}}
 
   <!-- UI handling -->
-  <script type="text/javascript" src="/js-ui/board.js"></script>
   <script type="text/javascript" src="/js-ui/serial.js"></script>
   <script type="text/javascript" src="/js-ui/components/base_component.js"></script>
-  <script type="text/javascript" src="/js-ui/components/led.js"></script>
-  <script type="text/javascript" src="/js-ui/components/thermistor.js"></script>
+  <script type="text/javascript" src="/js-ui/components/display.js"></script>
+  <script type="text/javascript" src="/js-ui/components/button.js"></script>
+  <script type="text/javascript" src="/js-ui/components/sensor.js"></script>
+  <script type="text/javascript" src="/js-ui/components/accelerometer_gestures.js"></script>
   {{#each jsui}}
   <script type="text/javascript" src="{{{script}}}"></script>
   {{/each}}

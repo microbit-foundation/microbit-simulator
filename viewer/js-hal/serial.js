@@ -19,8 +19,6 @@ window.MbedJSHal.serial = (function() {
         }
     };
 
-    window.socket.on('stdin', obj.onStdIn.bind(obj));
-
     obj.readable = function() {
         return stdioBuffer.length > 0 ? 1 : 0;
     };
