@@ -117,5 +117,7 @@
 
     window.MbedJSUI = {};
 
+    window.MbedJSUI.MicroPythonTests = ['test_files', 'test_files2', 'test_files3', 'test_image', 'test_random'];
+
     window.Module = Module;
 })();

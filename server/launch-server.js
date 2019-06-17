@@ -36,7 +36,7 @@ module.exports = function(outFolder, port, staticMaxAge, runtimeLogs, callback) 
     app.use(express.static(Path.join(__dirname, '..', 'viewer'), { maxAge: staticMaxAge }));
     app.use(bodyParser.json());
 
-    app.get('/', (req, res, next) => {
+    app.get('/simulator', (req, res, next) => {
         (async function() {
             res.render('viewer.html', {
                 version: version
@@ -45,6 +45,8 @@ module.exports = function(outFolder, port, staticMaxAge, runtimeLogs, callback) 
             return next(err);
         });
     });
+
+    app.use(express.static('tests'));
 
     console.log('Mbed Simulator v' + version);
 
