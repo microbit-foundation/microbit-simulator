@@ -28,8 +28,7 @@
     exports.ButtonA = new Button(17)
     exports.ButtonB = new Button(26)
 
-    const initializeMicrobitButtons = svgDocument => {
-        buttons = svgDocument.querySelector('#ButtonGroup');
+    const initializeMicrobitButtons = buttons => {
         buttons.onmousedown = function(e) {
             for (var i = 0; i < e.path.length; i++) {
                 if (e.path[i].id == 'use8162') {
@@ -53,7 +52,16 @@
     var svg = document.querySelector('#microbit-svg');
 
     if (svg.contentDocument && svg.contentDocument.rootElement) {
-        initializeMicrobitButtons(svg.contentDocument);
+        var callback = function() {
+            buttons = svg.contentDocument.querySelector('#ButtonGroup');
+            if (buttons == null) {
+                setTimeout(callback, 100);
+            }
+            else {
+                initializeMicrobitButtons(buttons);
+            }
+        };
+        callback();
     }
     else {
         svg.addEventListener('load', function() {
