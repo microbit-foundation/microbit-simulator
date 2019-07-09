@@ -67,6 +67,10 @@
 
     window.MbedJSUI = {};
 
+    window.MbedJSUI.getScript() = function () {
+        return window.document.getElementById("script").value;
+    }
+
     window.MbedJSUI.MicroPythonCrashesHardware = [
         // 'basics/builtin_type'
         // 'basics/bytes',
