@@ -188,7 +188,6 @@
         'basics/class_misc',
         'basics/class_number',
         'basics/class_reverse_op',
-        'basics/class_staticclassmethod',
         'basics/class_store_class',
         'basics/class_store',
         'basics/class_str',
