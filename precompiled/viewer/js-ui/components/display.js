@@ -61,6 +61,7 @@
         if (svg.contentDocument && svg.contentDocument.rootElement) {
             initializeMicrobitSvg(svg.contentDocument);
             self.allLit = svg.contentDocument.querySelector('#LEDsOn').querySelectorAll('use');
+            MicrobitDisplay.prototype.allLit = self.allLit;
             // Write a row pin to update the display.
             self._on_pin_write(self.firstRowPin, self.rowPinStateList[0], null);
         }
@@ -68,6 +69,7 @@
             svg.addEventListener('load', function() {
                 initializeMicrobitSvg(svg.contentDocument);
                 self.allLit = svg.contentDocument.querySelector('#LEDsOn').querySelectorAll('use');
+                MicrobitDisplay.prototype.allLit = self.allLit;
                 // Write a row pin to update the display.
                 self._on_pin_write(self.firstRowPin, self.rowPinStateList[0], null);
             });
@@ -123,6 +125,16 @@
                 lit.style.display = (this.LEDMatrix[i][j] == -1) ? 'none' : 'inline';
             }
         }
+    }
+
+    var MinOpacity = 0.35;
+
+    MicrobitDisplay.prototype.set_brightness = function(x, y, value) {
+        var lit = MicrobitDisplay.prototype.allLit[x * 5 + y];
+        value = (MinOpacity * 100) + (parseInt(value) * (1 - MinOpacity))
+        temp = Math.max(Math.min(value / 100.0, 1), 0).toString();
+        lit.style.opacity = temp;
+        lit.style.filter  = 'alpha(opacity=' + value + ')'; // IE fallback
     }
 
     MicrobitDisplay.prototype.micropython_mode = function() {

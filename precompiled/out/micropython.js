@@ -1150,11 +1150,11 @@ function updateGlobalBufferViews() {
 
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 344960,
+    STACK_BASE = 345200,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 5587840,
-    DYNAMIC_BASE = 5587840,
-    DYNAMICTOP_PTR = 344672;
+    STACK_MAX = 5588080,
+    DYNAMIC_BASE = 5588080,
+    DYNAMICTOP_PTR = 344912;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1656,10 +1656,11 @@ var ASM_CONSTS = [function($0, $1) { MbedJSHal.gpio.write($0, $1); },
 \
 Running Test <" + test + "> on reboot\r\
 \
-"); }; MicroPythonTests.run_by_index = function(index) { MicroPythonTests.run(window.MbedJSUI.MicroPythonTestList[index]); }; MicroPythonTests.log_result = function() { current_line_y = terminal.buffer.ybase + terminal.buffer.y; last_line = terminal.buffer.translateBufferLineToString(current_line_y - 1); if (!last_line.includes("TEST DONE")) { setTimeout(MicroPythonTests.log_result, 10); return; } last_line = terminal.buffer.translateBufferLineToString(current_line_y - 2); passed = last_line.includes("PASS"); result = ""; if (last_line.includes("SystemExit") || last_line.includes("Error") || last_line.includes("Exception")) { lines = [last_line]; for (i = 3; !last_line.includes("Traceback"); i++) { last_line = terminal.buffer.translateBufferLineToString(current_line_y - i); lines.push(last_line); } last_line = terminal.buffer.translateBufferLineToString(current_line_y - i); if (last_line.includes("SKIP") || last_line.includes("FAIL")) { lines.push(last_line); } for (i = lines.length - 1; i >= 0; i--) { result += '	' + lines[i]; } } else { result = '	' + last_line; } console.log(result); if (!passed) { MicroPythonTests.failed_tests.push([MicroPythonTests.currently_running, result]); } MicroPythonTests.currently_running = ""; }; return window.MbedJSUI.MicroPythonTestList.length; },
+"); }; MicroPythonTests.run_by_index = function(index) { MicroPythonTests.run(window.MbedJSUI.MicroPythonTestList[index]); }; MicroPythonTests.log_result = function() { current_line_y = terminal.buffer.ybase + terminal.buffer.y; last_line = terminal.buffer.translateBufferLineToString(current_line_y - 1); if (!last_line.includes("TEST DONE")) { setTimeout(MicroPythonTests.log_result, 10); return; } last_line = terminal.buffer.translateBufferLineToString(current_line_y - 2); passed = last_line.includes("PASS"); result = ""; if (last_line.includes("SystemExit") || last_line.includes("Error") || last_line.includes("Exception")) { lines = [last_line]; for (i = 3; !last_line.includes("Traceback"); i++) { last_line = terminal.buffer.translateBufferLineToString(current_line_y - i); lines.push(last_line); } last_line = terminal.buffer.translateBufferLineToString(current_line_y - i); if (last_line.includes("SKIP") || last_line.includes("FAIL")) { lines.push(last_line); } for (i = lines.length - 1; i >= 0; i--) { result += '\n	' + lines[i]; } } else { result = '	' + last_line; } console.log(result); if (!passed) { MicroPythonTests.failed_tests.push([MicroPythonTests.currently_running, result]); } MicroPythonTests.currently_running = ""; }; return window.MbedJSUI.MicroPythonTestList.length; },
  function($0) { MicroPythonTests.run_by_index($0); },
  function() { MicroPythonTests.log_result(); },
  function() { return MicroPythonTests.currently_running == "" ? 0 : 1; },
+ function($0, $1, $2) { MbedJSUI.MicrobitDisplay.prototype.set_brightness($0, $1, $2); },
  function($0) { executeFunctionByName(UTF8ToString($0), window); },
  function() { window.MbedJSUI.MicrobitDisplay.prototype.panic_mode(); },
  function() { window.MbedJSUI.MicrobitDisplay.prototype.normal_mode(); },
@@ -1670,6 +1671,10 @@ function _emscripten_asm_const_iii(code, a0, a1) {
 }
 
 function _emscripten_asm_const_iiii(code, a0, a1, a2) {
+  return ASM_CONSTS[code](a0, a1, a2);
+}
+
+function _emscripten_asm_const_iiid(code, a0, a1, a2) {
   return ASM_CONSTS[code](a0, a1, a2);
 }
 
@@ -1684,7 +1689,7 @@ function _emscripten_asm_const_ii(code, a0) {
 
 
 
-// STATICTOP = STATIC_BASE + 343936;
+// STATICTOP = STATIC_BASE + 344176;
 /* global initializers */  __ATINIT__.push({ func: function() { globalCtors() } });
 
 
@@ -1695,7 +1700,7 @@ function _emscripten_asm_const_ii(code, a0) {
 
 
 /* no memory initializer */
-var tempDoublePtr = 344944
+var tempDoublePtr = 345184
 assert(tempDoublePtr % 8 == 0);
 
 function copyTempFloat(ptr) { // functions, because inlining this code increases code size too much
@@ -3092,11 +3097,11 @@ function copyTempDouble(ptr) {
   
   var ERRNO_CODES={EPERM:1,ENOENT:2,ESRCH:3,EINTR:4,EIO:5,ENXIO:6,E2BIG:7,ENOEXEC:8,EBADF:9,ECHILD:10,EAGAIN:11,EWOULDBLOCK:11,ENOMEM:12,EACCES:13,EFAULT:14,ENOTBLK:15,EBUSY:16,EEXIST:17,EXDEV:18,ENODEV:19,ENOTDIR:20,EISDIR:21,EINVAL:22,ENFILE:23,EMFILE:24,ENOTTY:25,ETXTBSY:26,EFBIG:27,ENOSPC:28,ESPIPE:29,EROFS:30,EMLINK:31,EPIPE:32,EDOM:33,ERANGE:34,ENOMSG:42,EIDRM:43,ECHRNG:44,EL2NSYNC:45,EL3HLT:46,EL3RST:47,ELNRNG:48,EUNATCH:49,ENOCSI:50,EL2HLT:51,EDEADLK:35,ENOLCK:37,EBADE:52,EBADR:53,EXFULL:54,ENOANO:55,EBADRQC:56,EBADSLT:57,EDEADLOCK:35,EBFONT:59,ENOSTR:60,ENODATA:61,ETIME:62,ENOSR:63,ENONET:64,ENOPKG:65,EREMOTE:66,ENOLINK:67,EADV:68,ESRMNT:69,ECOMM:70,EPROTO:71,EMULTIHOP:72,EDOTDOT:73,EBADMSG:74,ENOTUNIQ:76,EBADFD:77,EREMCHG:78,ELIBACC:79,ELIBBAD:80,ELIBSCN:81,ELIBMAX:82,ELIBEXEC:83,ENOSYS:38,ENOTEMPTY:39,ENAMETOOLONG:36,ELOOP:40,EOPNOTSUPP:95,EPFNOSUPPORT:96,ECONNRESET:104,ENOBUFS:105,EAFNOSUPPORT:97,EPROTOTYPE:91,ENOTSOCK:88,ENOPROTOOPT:92,ESHUTDOWN:108,ECONNREFUSED:111,EADDRINUSE:98,ECONNABORTED:103,ENETUNREACH:101,ENETDOWN:100,ETIMEDOUT:110,EHOSTDOWN:112,EHOSTUNREACH:113,EINPROGRESS:115,EALREADY:114,EDESTADDRREQ:89,EMSGSIZE:90,EPROTONOSUPPORT:93,ESOCKTNOSUPPORT:94,EADDRNOTAVAIL:99,ENETRESET:102,EISCONN:106,ENOTCONN:107,ETOOMANYREFS:109,EUSERS:87,EDQUOT:122,ESTALE:116,ENOTSUP:95,ENOMEDIUM:123,EILSEQ:84,EOVERFLOW:75,ECANCELED:125,ENOTRECOVERABLE:131,EOWNERDEAD:130,ESTRPIPE:86};
   
-  var _stdin=344688;
+  var _stdin=344928;
   
-  var _stdout=344704;
+  var _stdout=344944;
   
-  var _stderr=344720;var FS={root:null,mounts:[],devices:{},streams:[],nextInode:1,nameTable:null,currentPath:"/",initialized:false,ignorePermissions:true,trackingDelegate:{},tracking:{openFlags:{READ:1,WRITE:2}},ErrnoError:null,genericErrors:{},filesystems:null,syncFSRequests:0,handleFSError:function (e) {
+  var _stderr=344960;var FS={root:null,mounts:[],devices:{},streams:[],nextInode:1,nameTable:null,currentPath:"/",initialized:false,ignorePermissions:true,trackingDelegate:{},tracking:{openFlags:{READ:1,WRITE:2}},ErrnoError:null,genericErrors:{},filesystems:null,syncFSRequests:0,handleFSError:function (e) {
         if (!(e instanceof FS.ErrnoError)) throw e + ' : ' + stackTrace();
         return ___setErrNo(e.errno);
       },lookupPath:function (path, opts) {
@@ -5061,7 +5066,7 @@ function copyTempDouble(ptr) {
   
   var ___async_unwind=1;
   
-  var ___async_retval=344928; 
+  var ___async_retval=345168; 
   
   
   
@@ -5989,7 +5994,7 @@ function nullFunc_viiiiii(x) { err("Invalid function pointer called with signatu
 
 var asmGlobalArg = {}
 
-var asmLibraryArg = { "abort": abort, "setTempRet0": setTempRet0, "getTempRet0": getTempRet0, "abortStackOverflow": abortStackOverflow, "nullFunc_i": nullFunc_i, "nullFunc_ii": nullFunc_ii, "nullFunc_iii": nullFunc_iii, "nullFunc_iiii": nullFunc_iiii, "nullFunc_iiiii": nullFunc_iiiii, "nullFunc_v": nullFunc_v, "nullFunc_vi": nullFunc_vi, "nullFunc_vii": nullFunc_vii, "nullFunc_viii": nullFunc_viii, "nullFunc_viiii": nullFunc_viiii, "nullFunc_viiiii": nullFunc_viiiii, "nullFunc_viiiiii": nullFunc_viiiiii, "__ZSt18uncaught_exceptionv": __ZSt18uncaught_exceptionv, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_free_exception": ___cxa_free_exception, "___cxa_pure_virtual": ___cxa_pure_virtual, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall140": ___syscall140, "___syscall146": ___syscall146, "___syscall4": ___syscall4, "___syscall54": ___syscall54, "___syscall6": ___syscall6, "___unlock": ___unlock, "_abort": _abort, "_emscripten_asm_const_i": _emscripten_asm_const_i, "_emscripten_asm_const_ii": _emscripten_asm_const_ii, "_emscripten_asm_const_iii": _emscripten_asm_const_iii, "_emscripten_asm_const_iiii": _emscripten_asm_const_iiii, "_emscripten_get_heap_size": _emscripten_get_heap_size, "_emscripten_get_now": _emscripten_get_now, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_emscripten_resize_heap": _emscripten_resize_heap, "_emscripten_set_main_loop": _emscripten_set_main_loop, "_emscripten_set_main_loop_timing": _emscripten_set_main_loop_timing, "_emscripten_sleep": _emscripten_sleep, "_gettimeofday": _gettimeofday, "_llvm_cos_f32": _llvm_cos_f32, "_llvm_returnaddress": _llvm_returnaddress, "_llvm_sin_f32": _llvm_sin_f32, "_llvm_trap": _llvm_trap, "_llvm_trunc_f32": _llvm_trunc_f32, "_pthread_cond_init": _pthread_cond_init, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "tempDoublePtr": tempDoublePtr, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "___async": ___async, "___async_unwind": ___async_unwind, "___async_retval": ___async_retval, "___async_cur_frame": ___async_cur_frame }
+var asmLibraryArg = { "abort": abort, "setTempRet0": setTempRet0, "getTempRet0": getTempRet0, "abortStackOverflow": abortStackOverflow, "nullFunc_i": nullFunc_i, "nullFunc_ii": nullFunc_ii, "nullFunc_iii": nullFunc_iii, "nullFunc_iiii": nullFunc_iiii, "nullFunc_iiiii": nullFunc_iiiii, "nullFunc_v": nullFunc_v, "nullFunc_vi": nullFunc_vi, "nullFunc_vii": nullFunc_vii, "nullFunc_viii": nullFunc_viii, "nullFunc_viiii": nullFunc_viiii, "nullFunc_viiiii": nullFunc_viiiii, "nullFunc_viiiiii": nullFunc_viiiiii, "__ZSt18uncaught_exceptionv": __ZSt18uncaught_exceptionv, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_free_exception": ___cxa_free_exception, "___cxa_pure_virtual": ___cxa_pure_virtual, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall140": ___syscall140, "___syscall146": ___syscall146, "___syscall4": ___syscall4, "___syscall54": ___syscall54, "___syscall6": ___syscall6, "___unlock": ___unlock, "_abort": _abort, "_emscripten_asm_const_i": _emscripten_asm_const_i, "_emscripten_asm_const_ii": _emscripten_asm_const_ii, "_emscripten_asm_const_iii": _emscripten_asm_const_iii, "_emscripten_asm_const_iiid": _emscripten_asm_const_iiid, "_emscripten_asm_const_iiii": _emscripten_asm_const_iiii, "_emscripten_get_heap_size": _emscripten_get_heap_size, "_emscripten_get_now": _emscripten_get_now, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_emscripten_resize_heap": _emscripten_resize_heap, "_emscripten_set_main_loop": _emscripten_set_main_loop, "_emscripten_set_main_loop_timing": _emscripten_set_main_loop_timing, "_emscripten_sleep": _emscripten_sleep, "_gettimeofday": _gettimeofday, "_llvm_cos_f32": _llvm_cos_f32, "_llvm_returnaddress": _llvm_returnaddress, "_llvm_sin_f32": _llvm_sin_f32, "_llvm_trap": _llvm_trap, "_llvm_trunc_f32": _llvm_trunc_f32, "_pthread_cond_init": _pthread_cond_init, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "tempDoublePtr": tempDoublePtr, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "___async": ___async, "___async_unwind": ___async_unwind, "___async_retval": ___async_retval, "___async_cur_frame": ___async_cur_frame }
 // EMSCRIPTEN_START_ASM
 var asm =Module["asm"]// EMSCRIPTEN_END_ASM
 (asmGlobalArg, asmLibraryArg, buffer);
