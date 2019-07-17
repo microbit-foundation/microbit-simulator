@@ -35,8 +35,8 @@ window.MbedJSHal.usticker = (function() {
         time = time / 1000 | 0;
         var now = Date.now() - start;
         var delta = time - now;
-        // console.log('setInterrupt', delta);
-        activeTimer = setTimeout(fireInterruptNow, delta);
+        // console.log('setInterrupt', time, delta);
+        activeTimer = setTimeout(fireInterruptNow, Math.max(delta, 0));
     }
 
     function clearInterrupt() {
