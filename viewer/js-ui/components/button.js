@@ -29,23 +29,22 @@
     exports.ButtonB = new Button(26)
 
     const initializeMicrobitButtons = buttons => {
+        var currentButton = null;
         buttons.onmousedown = function(e) {
+            if (currentButton != null) return
             for (var i = 0; i < e.path.length; i++) {
                 if (e.path[i].id == 'use8162') {
-                    window.MbedJSUI.ButtonB.down();
+                    currentButton = window.MbedJSUI.ButtonB;
+                    currentButton.down();
                     return;
                 }
             }
-            window.MbedJSUI.ButtonA.down();
+            currentButton = window.MbedJSUI.ButtonA;
+            currentButton.down();
         };
         buttons.onmouseup = function(e) {
-            for (var i = 0; i < e.path.length; i++) {
-                if (e.path[i].id == 'use8162') {
-                    window.MbedJSUI.ButtonB.up();
-                    return;
-                }
-            }
-            window.MbedJSUI.ButtonA.up();
+            currentButton.up();
+            currentButton = null;
         };
     }
 
