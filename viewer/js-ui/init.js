@@ -67,6 +67,10 @@
 
     window.MbedJSUI = {};
 
+    window.MbedJSUI.initialise = function () {
+        ccall('set_script', 'null',['string'], [window.document.getElementById("script").value]);
+    }
+
     window.MbedJSUI.MicroPythonCrashesHardware = [
         // 'basics/builtin_type'
         // 'basics/bytes',
