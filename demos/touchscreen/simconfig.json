@@ -1,5 +1,0 @@
-{
-    "peripherals": [
-        { "component": "ST7789H2", "args": {} }
-    ]
-}
