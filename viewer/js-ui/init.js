@@ -68,6 +68,7 @@
     window.MbedJSUI = {};
 
     window.MbedJSUI.initialise = function () {
+        window.MbedJSUI.MicrobitDisplay.prototype.clear();
         ccall('set_script', 'null',['string'], [window.document.getElementById("script").value]);
     }
 

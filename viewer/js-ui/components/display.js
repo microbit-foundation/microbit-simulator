@@ -52,6 +52,21 @@
                           [-1, -1, -1, -1, -1],
                           [-1, -1, -1, -1, -1]];
 
+        MicrobitDisplay.prototype.clear = function() {
+            self.clearing = true;
+            self.colPinStateList = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            self.rowPinStateList = [0, 0, 0];
+
+            // Store the time in 'row pin writes' that each LED has been on for.
+            self.LEDMatrix = [[-1, -1, -1, -1, -1],
+                              [-1, -1, -1, -1, -1],
+                              [-1, -1, -1, -1, -1],
+                              [-1, -1, -1, -1, -1],
+                              [-1, -1, -1, -1, -1]];
+            self.clearing = false;
+            self.timeout = setTimeout(self.update_display.bind(self), 1);
+        };
+
         self._on_pin_write = self.on_pin_write.bind(self);
 
         window.MbedJSHal.gpio.on('pin_write', self._on_pin_write);
@@ -90,6 +105,9 @@
     };
 
     MicrobitDisplay.prototype.on_pin_write = function(pin, value, type) {
+        if (this.clearing) {
+            return;
+        }
         if (value === 0 || value === 1) {
             if (pin >= this.firstColPin && pin < this.firstColPin + 9) {
                 this.colPinStateList[pin - this.firstColPin] = value;
@@ -104,6 +122,9 @@
     };
 
     MicrobitDisplay.prototype.update_display = function() {
+        if (this.clearing) {
+            return;
+        }
         this.timeout = null;
         for (var i = 0; i < 3; i++) {
             if (this.rowPinStateList[i] == 1) {
