@@ -1,17 +1,12 @@
 (function(exports) {
     function Sensor(parent, name, min, max, step, start, pins) {
-        exports.BaseComponent.call(this);
-
-        this.componentsEl = document.querySelector('#' + parent);
-
+        this.parent = parent;
         this.name = name;
         this.min = min;
         this.max = max;
         this.step = step;
         this.start = start;
     }
-
-    Sensor.prototype = Object.create(exports.BaseComponent.prototype);
 
     Sensor.prototype.init = function() {
         var self = this;
@@ -59,7 +54,7 @@
 
         el.appendChild(SensorP);
 
-        self.componentsEl.appendChild(el);
+        document.querySelector('#' + self.parent).appendChild(el);
     };
 
     Sensor.prototype.update_value = function(name, event) {
@@ -69,12 +64,6 @@
     Sensor.prototype.read = function(name) {
         return document.querySelector('#' + name + '_sensor_input').valueAsNumber;
     }
-
-    Sensor.prototype.destroy = function() {
-        window.removeComponent(this);
-
-        this.componentsEl.removeChild(this._el);
-    };
 
     Sensor.prototype.new = function(parent, name, min, max, step, start) {
         var sensor = Sensor.bind(Sensor, parent, name, min, max, step, start);

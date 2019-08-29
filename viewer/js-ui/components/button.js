@@ -1,16 +1,9 @@
 (function(exports) {
-    function Button(pin, pins) {
-        exports.BaseComponent.call(this);
+    function Button(pin) {
         this.pin = pin;
     }
 
-    Button.prototype = Object.create(exports.BaseComponent.prototype);
-
     Button.prototype.init = function() {};
-
-    Button.prototype.destroy = function() {
-        window.removeComponent(this);
-    };
 
     Button.prototype.press = function(pressTime) {
         this.down();

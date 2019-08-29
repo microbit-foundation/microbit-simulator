@@ -1,11 +1,5 @@
 (function(exports) {
-    function AccelerometerGestures(pins) {
-        exports.BaseComponent.call(this);
-
-        this.componentsEl = document.querySelector('#accelerometer');
-    }
-
-    AccelerometerGestures.prototype = Object.create(exports.BaseComponent.prototype);
+    function AccelerometerGestures() {}
 
     AccelerometerGestures.prototype.gesture_press = function() {
         this.gesture_pressed = true;
@@ -76,7 +70,7 @@
 
         p.appendChild(gestures);
         el.appendChild(p);
-        self.componentsEl.appendChild(el);
+        document.querySelector('#accelerometer').appendChild(el);
     };
 
     AccelerometerGestures.prototype.freefall = function() {
@@ -134,12 +128,6 @@
             self.shake_right = setInterval(self.set.bind(self, 'Accelerometer_X', -500), wait);
         }, wait / 2);
     }
-
-    AccelerometerGestures.prototype.destroy = function() {
-        window.removeComponent(this);
-
-        this.componentsEl.removeChild(this._el);
-    };
 
     exports.AccelerometerGestures = AccelerometerGestures
 

@@ -28,11 +28,7 @@
      [[4,2], [0,2], [2,2], [1,0], [3,0], [3,4], [1,4]],
      [[2,4], [4,4], [0,4], [0,1], [1,1], [2,1], [3,1], [4,1], [3,2]]];
 
-    function MicrobitDisplay(pins) {
-        exports.BaseComponent.call(this);
-    }
-
-    MicrobitDisplay.prototype = Object.create(exports.BaseComponent.prototype);
+    function MicrobitDisplay() {}
 
     MicrobitDisplay.prototype.init = function() {
         var self = this;
@@ -96,12 +92,6 @@
         for(var i = 0; i < self.colPinStateList.length; ++i) {
             self.colPinStateList[i] = MbedJSHal.gpio.read(self.firstColPin + i);
         }
-    };
-
-    MicrobitDisplay.prototype.destroy = function() {
-        window.MbedJSHal.gpio.removeListener('pin_write', this._on_pin_write);
-
-        window.removeComponent(this);
     };
 
     MicrobitDisplay.prototype.on_pin_write = function(pin, value, type) {
