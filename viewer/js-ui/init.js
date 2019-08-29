@@ -73,6 +73,10 @@
         window.MbedJSUI.MicrobitDisplay.prototype.micropython_mode();
     }
 
+    window.MbedJSUI.reset = function() {
+        ccall('reset_device', 'null');
+    }
+
     window.MbedJSUI.MicroPythonCrashesHardware = [
         // 'basics/builtin_type'
         // 'basics/bytes',
