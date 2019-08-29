@@ -36,7 +36,9 @@
             currentButton.down();
         };
         buttons.onmouseup = function(e) {
-            currentButton.up();
+            if (currentButton) {
+                currentButton.up();
+            }
             currentButton = null;
         };
     }
