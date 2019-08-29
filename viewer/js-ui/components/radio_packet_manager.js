@@ -3,6 +3,7 @@
 
     class Packet {
         constructor(packet_array) {
+            this.id = Math.floor(Math.random() * 10000000000000000);
             this.array = packet_array;
             this.address = (packet_array[0] | (packet_array[1] << 8) | (packet_array[2] << 16) | (packet_array[3] << 24)) >>> 0;
             this.group = packet_array[4];
@@ -15,14 +16,27 @@
         }
     }
 
+    RadioPacketManager.prototype.receive_history = [];
+    RadioPacketManager.prototype.broadcast_history = [];
+
     RadioPacketManager.prototype.init = function() {};
 
     RadioPacketManager.prototype.receive = function(packet) {
         ccall('radio_receive', 'null',['array'], [packet.array]);
+        RadioPacketManager.prototype.receive_history.push(packet);
     }
 
-    RadioPacketManager.prototype.broadcast = function(packet) {
-        console.log(new Packet(packet));
+    RadioPacketManager.prototype.broadcast = function(packet_array) {
+        var packet = new Packet(packet_array);
+        console.log(packet);
+        console.log(packet.payload_string);
+        RadioPacketManager.prototype.broadcast_history.push(packet);
+    }
+
+    RadioPacketManager.prototype.receive_last_broadcast = function() {
+        var length = RadioPacketManager.prototype.broadcast_history.length;
+        if (length > 0)
+            RadioPacketManager.prototype.receive(RadioPacketManager.prototype.broadcast_history[length - 1]);
     }
 
     exports.RadioPacketManager = RadioPacketManager;
