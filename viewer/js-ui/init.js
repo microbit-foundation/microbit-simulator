@@ -70,6 +70,7 @@
     window.MbedJSUI.initialise = function () {
         window.MbedJSUI.MicrobitDisplay.prototype.clear();
         ccall('set_script', 'null',['string'], [window.document.getElementById("script").value]);
+        window.MbedJSUI.MicrobitDisplay.prototype.micropython_mode();
     }
 
     window.MbedJSUI.MicroPythonCrashesHardware = [
