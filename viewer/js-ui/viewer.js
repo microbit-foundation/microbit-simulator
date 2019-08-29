@@ -6,7 +6,8 @@ var components = [ 'MicrobitDisplay',
                    'AccelerometerSensorX',
                    'AccelerometerSensorY',
                    'AccelerometerSensorZ',
-                   'AccelerometerGestures'];
+                   'AccelerometerGestures',
+                   'RadioPacketManager'];
 
 Module.preRun.push(function() {
     components.forEach(function(c, ix) {
