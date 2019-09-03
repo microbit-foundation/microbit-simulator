@@ -35,9 +35,6 @@ program
 // shorthand so you can run `mbed simulator .`
 if (fs.existsSync(process.argv[2]) && fs.statSync(process.argv[2]).isDirectory()) {
     program.inputDir = Path.resolve(process.argv[2]);
-    if (!program.launchHeadless) {
-        program.launch = true;
-    }
 }
 
 if (program.inputDir && program.inputFile) {
