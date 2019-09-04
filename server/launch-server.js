@@ -46,7 +46,7 @@ module.exports = function(outFolder, port, staticMaxAge, runtimeLogs, callback) 
         });
     });
 
-    app.use(express.static('tests'));
+    app.use(express.static('micropython/tests'));
 
     console.log('Mbed Simulator v' + version);
 
