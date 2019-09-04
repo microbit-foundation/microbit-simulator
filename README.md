@@ -26,7 +26,7 @@ After cloning the repository, run the following commands to build:
     ```
     > **WARNING**: This command will reset all git repositories within the development environment, do not use after changes have been made.
 
-    Will build the docker image that will be used to build the simulator, this will install all required dependencies and clone all necessary git repositories, including [MicroPython](https://github.com/geowor01/micropython).
+    Will build the docker image that will be used to build the simulator, this will install all required dependencies and clone all necessary git repositories, including the [MicroPython simulator](https://github.com/geowor01/micropython).
 
 2.
     ```
@@ -46,3 +46,7 @@ After cloning the repository, run the following commands to build:
 If you want to force a rebuild of the image, run `npm run build:dockerimage-clean`.
 
 If you want to reset all cloned repositories to their initial state, run `npm run wipe-dependencies` and `npm run init`.
+
+## Testing
+
+Follow the testing instructions in the [MicroPython simulator](https://github.com/geowor01/micropython) README.
