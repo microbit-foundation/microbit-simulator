@@ -8,7 +8,7 @@
     "build:dockerimage": "docker image inspect -f '.' simulator-image || npm run build:dockerimage-clean",
     "init": "npm run build:dockerimage && docker run --rm -e INIT=1 -e UID=$(id -u) -v $(pwd):/src simulator-image",
     "build": "docker run --rm -e UID=$(id -u) -v $(pwd):/src simulator-image && echo 'Output files can be found in /micropython/BUILD/SIMULATOR/'",
-    "build:sim": "rm mbed-simulator-hal/libmbed.bc || npm run build",
+    "build:full": "rm mbed-simulator-hal/libmbed.bc || npm run build",
     "wipe-dependencies": "sh wipe-dependencies.sh || true",
     "serve": "./cli.js micropython --skip-build --launch"
   },

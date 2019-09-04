@@ -48,9 +48,10 @@ module.exports = function(outFolder, port, staticMaxAge, runtimeLogs, callback) 
 
     app.use(express.static('micropython/tests'));
 
-    console.log('Mbed Simulator v' + version);
+    console.log('BBC micro:bit simulator');
 
     server.listen(port, process.env.HOST || '0.0.0.0', function () {
         console.log('Web server listening on port %s!', port);
+        console.log('Access simulator at http://localhost:%s/simulator', port);
     });
 };
