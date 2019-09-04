@@ -44,38 +44,6 @@ let libmbed = {
         return exists(outFile);
     },
 
-    mbedDeploy: async function() {
-        let cacheFile = Path.join(outFolder, 'ran-mbed-deploy.cache');
-
-        if (await exists(cacheFile)) {
-            return;
-        }
-
-        console.log(`'mbed deploy' did not run before, running...`);
-
-        return new Promise((resolve, reject) => {
-
-            let stdout = '';
-
-            let cmd = spawn('mbed', [ 'deploy' ], { cwd: Path.join(__dirname, '..') });
-
-            cmd.stdout.on('data', data => stdout += data.toString('utf-8'));
-            cmd.stderr.on('data', data => stdout += data.toString('utf-8'));
-
-            cmd.on('close', code => {
-                if (code === 0) {
-                    fs.writeFile(cacheFile, stdout, 'utf-8', function(err) {
-                        if (err) return reject(err);
-                        resolve(null);
-                    });
-                }
-                else {
-                    return reject('Failed to run `mbed deploy` (' + code + ')\n' + stdout);
-                }
-            });
-        });
-    },
-
     checkDependencies: async function() {
         try {
             await commandExists('mbed');
@@ -106,8 +74,6 @@ let libmbed = {
                 promisify(fs.unlink)(c);
             }
         }));
-
-        await this.mbedDeploy();
 
         let includeDirectories = await this.getAllDirectories();
         let cFiles = await this.getAllCFiles();

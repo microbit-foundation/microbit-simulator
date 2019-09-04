@@ -2,13 +2,13 @@
 
 if [ -z "$INIT" ]
 then
-    # Build
+    echo "Building Simulator"
     export PATH=$PATH:/emsdk/emscripten/1.38.21
     cd src
     ./cli.js micropython
     chown -R $UID /src
 else
-    # Initialise
+    echo "Initialise Simulator"
     cd src
     npm install
     echo "[trusted]" > /etc/mercurial/hgrc
