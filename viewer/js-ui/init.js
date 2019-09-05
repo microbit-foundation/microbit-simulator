@@ -65,16 +65,50 @@
         }
     };
 
+    window.broadcastSimulatorMessage = function(simwindow, packet) {
+        console.log(packet);
+        console.log(packet.payload_string);
+    }
+
+    window.closeSimulator = function(simwindow) {
+        window.MbedJSUI.reset();
+    }
+
+    window.getSimulatorScript = function(simwindow) {
+        return window.document.getElementById("script").value;
+    }
+
+    window.getSimulatorFileSystemSize = function(simwindow) {
+        // Will get saturated to max size.
+        return 1000000;
+    }
+
+    window.initialiseSimulator = function(simwindow) {}
+
     window.MbedJSUI = {};
 
+    window.MbedJSUI.simulator_id = Math.floor(Math.random() * 10000000000000000);
+
     window.MbedJSUI.initialise = function () {
+        document.querySelector('#error-status').textContent = "";
         window.MbedJSUI.MicrobitDisplay.prototype.clear();
-        ccall('set_script', 'null',['string'], [window.document.getElementById("script").value]);
+        ccall('set_filesystem_size', 'null', ['number'], [window.parent.getSimulatorFileSystemSize(window)]);
+        ccall('set_script', 'null',['string'], [window.parent.getSimulatorScript(window)]);
         window.MbedJSUI.MicrobitDisplay.prototype.micropython_mode();
+        window.MbedJSUI.ready = true;
+        window.parent.initialiseSimulator(window);
     }
 
     window.MbedJSUI.reset = function() {
-        ccall('reset_device', 'null');
+        if (window.MbedJSUI.ready) {
+             ccall('reset_device', 'null');
+         }
+    }
+
+    window.MbedJSUI.write_file = function(fileName, bytes) {
+        if (window.MbedJSUI.ready) {
+            ccall('write_file', 'null',['string', 'array', 'number'], [fileName, bytes, bytes.length]);
+        }
     }
 
     window.MbedJSUI.MicroPythonCrashesHardware = [

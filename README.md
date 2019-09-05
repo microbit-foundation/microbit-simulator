@@ -50,3 +50,51 @@ If you want to reset all cloned repositories to their initial state, run `npm ru
 ## Testing
 
 Follow the testing instructions in the [MicroPython simulator](https://github.com/geowor01/micropython) README.
+
+## Integrating the simulator
+
+An example of using the simulator within another web page is the BBC micro:bit [Python Editor](https://github.com/microbit-foundation/python-editor).
+
+The .js and .wasm files in /micropython/BUILD/SIMULATOR/ are copied over, along with the /viewer directory.
+
+The simulator is contained within an iframe like so `<iframe class='simulator-frame' src='/simulator/viewer/viewer.html'></iframe>`.
+
+Changes made to the simulator were as follows:
+- This requires the src of elements in viewer/viewer.html to be altered to point to the correct locations.
+- Changing the styling in /viewer/style/simulator.css.
+- Removing the script div from /viewer/viewer.html.
+
+When containing the simulator in an iframe, the following functions must be implemented in the parent window:
+
+-
+    ```
+    window.broadcastSimulatorMessage(simwindow, packet)
+    ```
+    Handles radio messages sent by an instance of the simulator, used to send the messages to the other instances.
+
+-
+    ```
+    window.closeSimulator(simwindow)
+    ```
+    Used to possibly remove the simulator's iframe or close in another form.
+
+-
+    ```
+    window.getSimulatorScript(simwindow)
+    ```
+    Returns the script to be run by the simulator (can be an empty string to use the REPL).
+
+-
+    ```
+    window.getSimulatorFileSystemSize(simwindow)
+    ```
+    Returns the size of the filesystem to be used. Returning a value higher than max will set the filesystem to its maximum size.
+
+-
+    ```
+    window.initialiseSimulator(simwindow)
+    ```
+    Called when the simulator is being initialised. Can be used to write to the filesystem using `simwindow.MbedJSUI.write_file(fileName, bytes)` where bytes is a `Uint8Array`.
+
+The `simwindow` is the `contentWindow` of the simulator that has called the function.
+The simulator uses `window.parent` to access these functions. When no parent exists, `window.parent` points to `window`, and so these calls make use of the implementations found in init.js.

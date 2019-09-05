@@ -16,8 +16,12 @@
 </head>
 <body class="viewer">
   <div id="viewer-topbar">
-    <a id="refresh" href="">&#x21bb;</a>
+    <a id="refresh" onclick="window.MbedJSUI.reset()">&#x21bb;</a>
+    <a id="close" onclick="window.parent.closeSimulator()">&#10060;</a>
     <div id="status">Downloading...</div>
+  </div>
+  <div id="error-display">
+    <div id="error-status"></div>
   </div>
 
   <section id="board">

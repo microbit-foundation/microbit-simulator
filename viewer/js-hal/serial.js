@@ -11,7 +11,7 @@ window.MbedJSHal.serial = (function() {
     obj.onStdIn = function (c) {
         stdioBuffer.push(c);
 
-        if (this.ptr) {
+        if (window.MbedJSUI.ready && this.ptr) {
             ccall('invoke_serial_irq', null,
                 [ 'number' ],
                 [ this.ptr ],
