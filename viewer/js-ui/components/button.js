@@ -21,7 +21,7 @@
     exports.ButtonA = new Button(17)
     exports.ButtonB = new Button(26)
 
-    const initializeMicrobitButtons = buttons => {
+    const initializeMicrobitButtons = function(buttons) {
         var currentButton = null;
         buttons.onmousedown = function(e) {
             if (currentButton != null) return

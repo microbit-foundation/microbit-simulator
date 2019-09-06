@@ -3,19 +3,19 @@
     // Used in order to cope with strobing (three rows to strobe, with MicroPython updating the pins twice on each strobe)
     var fadeTime = 6;
 
-    const initializeMicrobitSvg = svgDocument => {
+    const initializeMicrobitSvg = function(svgDocument) {
         const colourLayerSelectors = ['#ColourFringeGreen', '#ColourFringeRed', '#ColourFringeBlue', '#ColourFringeYellow'];
-        let activeColourLayer = 0;
+        var activeColourLayer = 0;
 
-        const colourLayers = colourLayerSelectors.map(id => svgDocument.querySelector(id));
-        const showColourLayer = layer => {
-          colourLayers.forEach(other => {
+        const colourLayers = colourLayerSelectors.map(function(id) { return svgDocument.querySelector(id); });
+        const showColourLayer = function(layer) {
+          colourLayers.forEach(function(other) {
             other.style.display = other === layer ? 'inline' : 'none';
           });
         };
-        colourLayers.forEach(layer => {
+        colourLayers.forEach(function(layer) {
           layer.style.pointerEvents = 'all';
-          layer.onclick = () => {
+          layer.onclick = function() {
             activeColourLayer = (activeColourLayer + 1) % colourLayers.length;
             showColourLayer(colourLayers[activeColourLayer]);
           };

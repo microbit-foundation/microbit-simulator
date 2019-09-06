@@ -560,7 +560,7 @@
         'microbit/test_image',
         'microbit/test_random'];
 
-    window.MbedJSUI.MicroPythonTestList = window.MbedJSUI.MicroPythonTestList.filter(x => !window.MbedJSUI.MicroPythonCrashesHardware.includes(x));
+    window.MbedJSUI.MicroPythonTestList = window.MbedJSUI.MicroPythonTestList.filter(function(x) { return !window.MbedJSUI.MicroPythonCrashesHardware.includes(x); });
 
     window.Module = Module;
 })();
