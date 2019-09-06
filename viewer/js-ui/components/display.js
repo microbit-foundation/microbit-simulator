@@ -1,7 +1,9 @@
 (function(exports) {
 
     // Used in order to cope with strobing (three rows to strobe, with MicroPython updating the pins twice on each strobe)
-    var fadeTime = 6;
+    var fadeTime = 32;
+
+    var in_micropython_mode = true;
 
     const initializeMicrobitSvg = function(svgDocument) {
         const colourLayerSelectors = ['#ColourFringeGreen', '#ColourFringeRed', '#ColourFringeBlue', '#ColourFringeYellow'];
@@ -133,7 +135,9 @@
                 if (this.LEDMatrix[i][j] == this.currentTime) {
                     this.LEDMatrix[i][j] = -1;
                 }
-                lit.style.display = (this.LEDMatrix[i][j] == -1) ? 'none' : 'inline';
+                if (!in_micropython_mode) {
+                    lit.style.display = (this.LEDMatrix[i][j] == -1) ? 'none' : 'inline';
+                }
             }
         }
     }
@@ -142,18 +146,23 @@
 
     MicrobitDisplay.prototype.set_brightness = function(x, y, value) {
         var lit = MicrobitDisplay.prototype.allLit[x * 5 + y];
-        value = (MinOpacity * 100) + (parseInt(value) * (1 - MinOpacity))
-        temp = Math.max(Math.min(value / 100.0, 1), 0).toString();
+        value = value > 0 ? (MinOpacity * 100) + (parseInt(value) * (1 - MinOpacity)) : 0;
+        temp = Math.min(value / 100.0, 1).toString();
         lit.style.opacity = temp;
         lit.style.filter  = 'alpha(opacity=' + value + ')'; // IE fallback
+        lit.style.display = value == 0 ? 'none' : 'inline';
     }
 
-    MicrobitDisplay.prototype.micropython_mode = function() {
-        fadeTime = 6;
-    }
-
-    MicrobitDisplay.prototype.panic_mode = function() {
-        fadeTime = 32;
+    MicrobitDisplay.prototype.micropython_mode = function(enabled) {
+        in_micropython_mode = enabled;
+        if (!enabled) {
+            for (var i = 0; i < 5; ++i) {
+                for (var j = 0; j < 5; ++j) {
+                    MicrobitDisplay.prototype.clear();
+                    MicrobitDisplay.prototype.set_brightness(j, i, 100);
+                }
+            }
+        }
     }
 
     exports.MicrobitDisplay = MicrobitDisplay;

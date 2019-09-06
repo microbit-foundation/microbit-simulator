@@ -94,7 +94,7 @@
         window.MbedJSUI.MicrobitDisplay.prototype.clear();
         ccall('set_filesystem_size', 'null', ['number'], [window.parent.getSimulatorFileSystemSize(window)]);
         ccall('set_script', 'null',['string'], [window.parent.getSimulatorScript(window)]);
-        window.MbedJSUI.MicrobitDisplay.prototype.micropython_mode();
+        window.MbedJSUI.MicrobitDisplay.prototype.micropython_mode(true);
         window.MbedJSUI.ready = true;
         window.parent.initialiseSimulator(window);
     }
