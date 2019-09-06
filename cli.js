@@ -78,13 +78,6 @@ if (!program.outputFile) {
     }
 }
 
-if (!commandExistsSync('emcc')) {
-    console.log('Cannot find emcc');
-    console.log('\tEmscripten is not installed (or not in your PATH)');
-    console.log('\tFollow: https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html');
-    process.exit(1);
-}
-
 let inputDir = program.inputDir ? Path.resolve(program.inputDir) : Path.resolve(Path.dirname(program.inputFile));
 program.inputFile = program.inputFile ? Path.resolve(program.inputFile) : null;
 program.outputFile = Path.resolve(program.outputFile);
@@ -105,6 +98,12 @@ let fn = program.inputDir ? application.buildDirectory : application.buildFile;
 if (program.skipBuild) {
     console.log('Skipping build...');
     fn = () => Promise.resolve();
+}
+else if (!commandExistsSync('emcc')) {
+    console.log('Cannot find emcc');
+    console.log('\tEmscripten is not installed (or not in your PATH)');
+    console.log('\tFollow: https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html');
+    process.exit(1);
 }
 
 function attachStdin(server) {
