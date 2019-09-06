@@ -142,6 +142,14 @@
         }
     }
 
+     MicrobitDisplay.prototype.set_image = function(image) {
+        for (var i = 0; i < 5; ++i) {
+            for (var j = 0; j < 5; ++j) {
+                MicrobitDisplay.prototype.set_brightness(j, i, 100 * image[(j * 5) + i] / 9);
+            }
+        }
+     }
+
     var MinOpacity = 0.35;
 
     MicrobitDisplay.prototype.set_brightness = function(x, y, value) {
