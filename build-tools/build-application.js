@@ -117,7 +117,7 @@ let buildDirectory = async function (inputDir, outFile, extraArgs, emterpretify,
     // so... we need to remove all folders that also exist in the simulator...
     let toRemove = [
         'BUILD',
-        'mbed-os',
+        'mbed-os-simulator',
         'sd-driver',
         'easy-connect',
         'simple-mbed-cloud-client',

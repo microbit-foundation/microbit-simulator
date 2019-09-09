@@ -2,7 +2,7 @@
 
 This project is a fork of the [Mbed Simulator](https://github.com/janjongboom/mbed-simulator) that has been modified in order to simulate the BBC micro:bit in browser using [Emscripten](https://emscripten.org/). The project has been stripped down to the necessary parts and Javascript added to simulate micro:bit specific peripherals.
 
-The simulator is currently used to run [MicroPython scripts in browser](https://github.com/geowor01/micropython), which is used by the [MicroPython Editor](https://github.com/bbcmicrobit/PythonEditor).
+The simulator is currently used to run [MicroPython scripts in browser](https://github.com/microbit-foundation/micropython-simulator), which is used by the [MicroPython Editor](https://github.com/bbcmicrobit/PythonEditor).
 
 ## Docs
 
@@ -26,7 +26,7 @@ After cloning the repository, run the following commands to build:
     ```
     > **WARNING**: This command will reset all git repositories within the development environment, do not use after changes have been made.
 
-    Will build the docker image that will be used to build the simulator, this will install all required dependencies and clone all necessary git repositories, including the [MicroPython simulator](https://github.com/geowor01/micropython).
+    Will build the docker image that will be used to build the simulator, this will install all required dependencies and clone all necessary git repositories, including the [MicroPython simulator](https://github.com/microbit-foundation/micropython-simulator).
 
 2.
     ```
@@ -49,13 +49,13 @@ If you want to reset all cloned repositories to their initial state, run `npm ru
 
 ## Testing
 
-Follow the testing instructions in the [MicroPython simulator](https://github.com/geowor01/micropython) README.
+Follow the testing instructions in the [MicroPython simulator](https://github.com/microbit-foundation/micropython-simulator) README.
 
 ## Integrating the simulator
 
 An example of using the simulator within another web page is the BBC micro:bit [Python Editor](https://github.com/microbit-foundation/python-editor).
 
-The .js and .wasm files in /micropython/BUILD/SIMULATOR/ are copied over, along with the /viewer directory.
+The .js and .wasm files in /micropython-simulator/BUILD/SIMULATOR/ are copied over, along with the /viewer directory.
 
 The simulator is contained within an iframe like so `<iframe class='simulator-frame' src='/simulator/viewer/viewer.html'></iframe>`.
 
@@ -97,4 +97,4 @@ When containing the simulator in an iframe, the following functions must be impl
     Called when the simulator is being initialised. Can be used to write to the filesystem using `simwindow.MbedJSUI.write_file(fileName, bytes)` where bytes is a `Uint8Array`.
 
 The `simwindow` is the `contentWindow` of the simulator that has called the function.
-The simulator uses `window.parent` to access these functions. When no parent exists, `window.parent` points to `window`, and so these calls make use of the implementations found in init.js.
+The simulator uses `window.parent` to access these functions. When no parent exists, `window.parent` points to `window`, and so these calls make use of the implementations found in `init.js`.

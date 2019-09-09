@@ -7,17 +7,17 @@
     "build:dockerimage-clean": "docker build -t simulator-image .",
     "build:dockerimage": "docker image inspect -f '.' simulator-image || npm run build:dockerimage-clean",
     "init": "npm run build:dockerimage && docker run --rm -e INIT=1 -e UID=$(id -u) -v $(pwd):/src simulator-image",
-    "build": "docker run --rm -e UID=$(id -u) -v $(pwd):/src simulator-image && echo 'Output files can be found in /micropython/BUILD/SIMULATOR/'",
-    "build:full": "rm mbed-simulator-hal/libmbed.bc || npm run build",
+    "build": "docker run --rm -e UID=$(id -u) -v $(pwd):/src simulator-image && echo 'Output files can be found in /micropython-simulator/BUILD/SIMULATOR/'",
+    "build:full": "(rm mbed-simulator-hal/libmbed.bc || true) && npm run build",
     "wipe-dependencies": "sh wipe-dependencies.sh || true",
-    "serve": "./cli.js micropython --skip-build --launch"
+    "serve": "./cli.js micropython-simulator --skip-build --launch"
   },
   "bin": {
     "mbed-simulator": "./cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/janjongboom/mbed-simulator.git"
+    "url": "git+https://github.com/microbit-foundation/microbit-simulator"
   },
   "keywords": [
     "mbed",

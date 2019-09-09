@@ -5,7 +5,7 @@ then
     echo "Building Simulator"
     export PATH=$PATH:/emsdk/emscripten/1.38.21
     cd src
-    ./cli.js micropython
+    ./cli.js "micropython-simulator"
     chown -R $UID /src
 else
     echo "Initialise Simulator"
