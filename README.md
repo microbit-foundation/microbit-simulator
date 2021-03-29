@@ -98,3 +98,7 @@ When containing the simulator in an iframe, the following functions must be impl
 
 The `simwindow` is the `contentWindow` of the simulator that has called the function.
 The simulator uses `window.parent` to access these functions. When no parent exists, `window.parent` points to `window`, and so these calls make use of the implementations found in `init.js`.
+
+## Code of Conduct
+
+Trust, partnership, simplicity and passion are our core values we live and breathe in our daily work life and within our projects. Our open-source projects are no exception. We have an active community which spans the globe and we welcome and encourage participation and contributions to our projects by everyone. We work to foster a positive, open, inclusive and supportive environment and trust that our community respects the micro:bit code of conduct. Please see our [code of conduct](https://microbit.org/safeguarding/) which outlines our expectations for all those that participate in our community and details on how to report any concerns and what would happen should breaches occur.
